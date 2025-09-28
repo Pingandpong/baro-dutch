@@ -1,0 +1,22 @@
+
+Error: [resolve-plugin] "onResolve" filter is not a valid Go regular expression: "^prelude:C:\\Users\\jeyoung\\projects\\app_in_toss\\baro-dutch\\node_modules\\react-native\\Libraries\\Core\\InitializeCore.js(?:$|\\/)"
+    at C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:968:34
+    at responseCallbacks.<computed> (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:622:9)
+    at handleIncomingPacket (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:676:31)
+    at Socket.readFromStdout (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:600:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+Error: [resolve-plugin] "onResolve" filter is not a valid Go regular expression: "^prelude:C:\\Users\\jeyoung\\projects\\app_in_toss\\baro-dutch\\node_modules\\react-native\\Libraries\\Core\\InitializeCore.js(?:$|\\/)"
+    at C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:968:34
+    at responseCallbacks.<computed> (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:622:9)
+    at handleIncomingPacket (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:676:31)
+    at Socket.readFromStdout (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:600:7)
+    at Socket.emit (node:events:524:28)
+    at addChunk (node:internal/streams/readable:561:12)
+    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
+    at Readable.push (node:internal/streams/readable:392:5)
+    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
+Error Build failed

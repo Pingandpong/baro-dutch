@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>토스 미니앱 제안서 — 한번에 정산</title>
+<style>
+  :root {
+    color-scheme: dark;
+    --bg: #0b0f14;
+    --card: #121821;
+    --text: #e6e9ef;
+    --muted: #a9b0bb;
+    --accent: #66b2ff;
+    --border: #1e2633;
+    --success: #7cd992;
+    --warning: #ffd166;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, "Inter", "Pretendard", "Apple SD Gothic Neo", "Segoe UI", Roboto, "Noto Sans KR", sans-serif; }
+  .wrap { max-width: 920px; margin: 48px auto; padding: 0 20px; }
+  header { display: flex; align-items: center; gap: 16px; margin-bottom: 28px; }
+  .badge { font-size: 12px; color: var(--bg); background: var(--accent); padding: 6px 10px; border-radius: 999px; font-weight: 600; letter-spacing: .02em; }
+  h1 { font-size: 28px; margin: 4px 0 0; }
+  .subtitle { color: var(--muted); margin-top: 6px; }
+  section { background: var(--card); border: 1px solid var(--border); border-radius: 16px; padding: 20px; margin: 16px 0; }
+  h2 { font-size: 18px; margin: 0 0 12px; }
+  p { line-height: 1.7; margin: 0; }
+  ul { margin: 8px 0 0 18px; }
+  li { margin: 6px 0; }
+  .kpi { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-top: 12px; }
+  .kpi .item { background: #0e141c; border: 1px dashed var(--border); border-radius: 12px; padding: 14px; }
+  .kpi .label { color: var(--muted); font-size: 12px; }
+  .kpi .value { font-size: 18px; font-weight: 700; margin-top: 6px; }
+  .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .tag { display: inline-block; border: 1px solid var(--border); padding: 4px 8px; border-radius: 999px; font-size: 12px; color: var(--muted); margin-right: 6px; margin-top: 6px; }
+  .hint { color: var(--muted); font-size: 13px; margin-top: 8px; }
+  footer { color: var(--muted); font-size: 12px; text-align: center; margin: 28px 0 16px; }
+  .divider { height: 1px; background: var(--border); margin: 8px 0 12px; }
+  .mono { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace; }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge">Toss Mini App</span>
+      <div>
+        <h1>한번에 정산 — 영수증 한 장, 몇 초 만에 모임 정산 끝</h1>
+        <div class="subtitle">영수증을 찍으면 항목·가격을 자동 추출하고, 사람별 금액을 즉시 분배/공유합니다.</div>
+      </div>
+    </header>
+
+    <section>
+      <h2>① 어떤 앱인지 (요약)</h2>
+      <p>모임·여행·동호회에서 발생하는 비용을 <b>OCR</b>로 자동 인식하고, 항목을 사람별로 <b>터치 분배</b>하여 정산 결과를 <b>링크로 공유</b>하는 토스 미니앱입니다. 토스의 송금·요청 송금 흐름과 자연스럽게 연결되어, 채팅방에서 계산기 두드릴 필요가 없습니다.</p>
+      <div class="divider"></div>
+      <ul>
+        <li><b>핵심 JTBD:</b> “영수증을 <u>찍기만</u> 하면 사람별 금액을 <u>몇 초 만에</u> 나눠 공유하고 싶다.”</li>
+        <li><b>MVP 기능:</b> 영수증 OCR · 사람 배정 UI(균등/비율/개별) · 정산 결과 생성/공유(영/한) · 수수료/할인/배달비 분배 토글 · (옵션) 1회 리마인더</li>
+        <li><b>차별화:</b> <span class="mono">OCR → 배분 → 공유</span> 3단 자동화로 토스 기본 송금 기능을 보완</li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>② 기술 스택 (핵심 라이브러리)</h2>
+      <div class="grid">
+        <div>
+          <p><b>클라이언트</b></p>
+          <ul>
+            <li>React (Toss 미니앱 웹뷰) + TypeScript</li>
+            <li>UI: Gluestack UI (<span class="mono">@/components/ui/*</span>)</li>
+            <li>상태/폼: Zustand · React Hook Form</li>
+            <li>이미지: Web Canvas · EXIF 정규화</li>
+          </ul>
+        </div>
+        <div>
+          <p><b>백엔드</b></p>
+          <ul>
+            <li>Firebase (Auth · Functions · Storage · Firestore)</li>
+            <li>Serverless OCR 파이프라인 (Cloud Functions)</li>
+            <li>로그/옵스: GCP Cloud Logging · Error Reporting</li>
+          </ul>
+        </div>
+      </div>
+      <div class="divider"></div>
+      <div class="grid">
+        <div>
+          <p><b>AI/OCR</b></p>
+          <ul>
+            <li>영수증 OCR: PaddleOCR or Google OCR (서버 사이드)</li>
+            <li>항목 정규화 & 세금/봉사료 탐지: 규칙 + LLM 보정</li>
+            <li>다국어(영/한) 요약/공유문 템플릿: LLM</li>
+          </ul>
+        </div>
+        <div>
+          <p><b>토스 연계</b></p>
+          <ul>
+            <li>정산 결과에서 <b>송금/요청 송금</b>으로 딥링크 연결</li>
+            <li>공유 링크로 재방문 시, 상태 복구 & 지연 분배 이어서 진행</li>
+          </ul>
+        </div>
+      </div>
+      <p class="hint">※ 사용자의 기존 선호 스택(React Native/Expo/Gluestack/Firebase)을 유지하되, 미니앱 특성상 웹뷰 기반 React로 최초 구현 후 RN 래핑 가능.</p>
+    </section>
+
+    <section>
+      <h2>③ 비즈니스 모델 (광고 / 구독 / IAP)</h2>
+      <ul>
+        <li><b>Basic (무료):</b> 월 10건 OCR, 기본 분배(균등/비율), 링크 공유, 광고 노출</li>
+        <li><b>Premium (구독):</b> 무제한 OCR, 항목 드래그 분배, 다국어(영/한), 분배 규칙 저장, 광고 제거</li>
+        <li><b>Team (IAP/좌석):</b> 소모임·동호회 대상 <i>그룹 기록/정산 히스토리</i>, 멤버 초대, 역할(정산담당) — 월/연 단위</li>
+      </ul>
+      <div class="kpi">
+        <div class="item">
+          <div class="label">전환 포인트</div>
+          <div class="value">OCR 월 10건 초과 시 업셀</div>
+        </div>
+        <div class="item">
+          <div class="label">수익 믹스</div>
+          <div class="value">광고 30% · 구독 60% · IAP 10%</div>
+        </div>
+        <div class="item">
+          <div class="label">CAC 절감</div>
+          <div class="value">토스 내 바이럴/공유 링크</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>④ 시장 가능성 (왜-지금)</h2>
+      <ul>
+        <li><b>행태 전환:</b> 송금은 이미 토스 내에서 이뤄짐 → <u>송금 이전 단계</u>의 정산 자동화 수요가 증가</li>
+        <li><b>경험 공백:</b> 채팅방·스프레드시트로 수동 분배하는 불편이 여전히 큼</li>
+        <li><b>AI 보급:</b> OCR/LLM 비용 하락으로 <i>실시간 품목 분배</i>가 현실화</li>
+        <li><b>슈퍼앱 트렌드:</b> 토스 미니앱 생태계에서 <u>생활밀착 자동화</u>는 채택률이 높음</li>
+      </ul>
+      <p class="hint">초기 타깃: 대학생/사회초년생의 점심·회식, 여행/동호회. 재사용 빈도와 추천 가능성이 높습니다.</p>
+    </section>
+
+    <section>
+      <h2>부록 — MVP 플로우 (요약)</h2>
+      <ul>
+        <li>영수증 촬영 → OCR → 항목/가격 파싱 (+세금/봉사료 감지)</li>
+        <li>모임원 추가 → 균등/비율/개별 모드 선택 → 항목 드래그로 배정</li>
+        <li>정산 결과 생성 → 송금 메모 복사 → 공유 링크 생성(영/한)</li>
+        <li>(옵션) 미정산자 1회 리마인더 발송</li>
+      </ul>
+      <div class="hint">보안/프라이버시: 이미지 일시 저장 후 텍스트만 보관, 개인식별정보 최소화, 만료 정책 적용.</div>
+    </section>
+
+    <footer>
+      © 2025 한번에 정산 · Toss Mini App Proposal
+    </footer>
+  </div>
+</body>
+</html>
