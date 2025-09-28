@@ -1,22 +1,25 @@
 
-Error: [resolve-plugin] "onResolve" filter is not a valid Go regular expression: "^prelude:C:\\Users\\jeyoung\\projects\\app_in_toss\\baro-dutch\\node_modules\\react-native\\Libraries\\Core\\InitializeCore.js(?:$|\\/)"
-    at C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:968:34
-    at responseCallbacks.<computed> (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:622:9)
-    at handleIncomingPacket (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:676:31)
-    at Socket.readFromStdout (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:600:7)
-    at Socket.emit (node:events:524:28)
-    at addChunk (node:internal/streams/readable:561:12)
-    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
-    at Readable.push (node:internal/streams/readable:392:5)
-    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
-Error: [resolve-plugin] "onResolve" filter is not a valid Go regular expression: "^prelude:C:\\Users\\jeyoung\\projects\\app_in_toss\\baro-dutch\\node_modules\\react-native\\Libraries\\Core\\InitializeCore.js(?:$|\\/)"
-    at C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:968:34
-    at responseCallbacks.<computed> (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:622:9)
-    at handleIncomingPacket (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:676:31)
-    at Socket.readFromStdout (C:\Users\jeyoung\projects\app_in_toss\baro-dutch\node_modules\esbuild\lib\main.js:600:7)
-    at Socket.emit (node:events:524:28)
-    at addChunk (node:internal/streams/readable:561:12)
-    at readableAddChunkPushByteMode (node:internal/streams/readable:512:3)
-    at Readable.push (node:internal/streams/readable:392:5)
-    at Pipe.onStreamRead (node:internal/stream_base_commons:191:23)
-Error Build failed
+
+metro-file-map: Haste module naming collision: typescript
+  The following files share their name; please adjust your hasteImpl:
+    * <rootDir>/document/apps-in-toss-examples-main/examples/.yarn/sdks/typescript/package.json
+    * <rootDir>/document/apps-in-toss-examples-main/with-clipboard-text/.yarn/sdks/typescript/package.json
+
+Failed to construct transformer:  DuplicateError: Duplicated files or mocks. Please check the console for more info
+    at setModule (/Users/siwoo/Documents/baro-dutch/node_modules/metro-file-map/src/index.js:553:17)
+    at workerReply (/Users/siwoo/Documents/baro-dutch/node_modules/metro-file-map/src/index.js:624:9)
+    at process.processTicksAndRejections (node:internal/process/task_queues:95:5)
+    at async Promise.all (index 21640)
+    at async /Users/siwoo/Documents/baro-dutch/node_modules/metro-file-map/src/index.js:395:22
+    at async DependencyGraph.ready (/Users/siwoo/Documents/baro-dutch/node_modules/@granite-js/mpack/dist/vendors/metro/src/node-haste/DependencyGraph.js:69:5)
+    at async Bundler.ready (/Users/siwoo/Documents/baro-dutch/node_modules/@granite-js/mpack/dist/vendors/metro/src/Bundler.js:40:5)
+    at async IncrementalBundler.ready (/Users/siwoo/Documents/baro-dutch/node_modules/@granite-js/mpack/dist/vendors/metro/src/IncrementalBundler.js:210:5)
+    at async Server.ready (/Users/siwoo/Documents/baro-dutch/node_modules/@granite-js/mpack/dist/vendors/metro/src/Server.js:842:5) {
+  mockPath1: 'document/apps-in-toss-examples-main/examples/.yarn/sdks/typescript/package.json',
+  mockPath2: 'document/apps-in-toss-examples-main/with-clipboard-text/.yarn/sdks/typescript/package.json'
+}
+To reload the app press "r"
+To open developer menu press "d"
+To open debugger press "j"
+
+Development server is running at http://0.0.0.0:8081

@@ -2,7 +2,6 @@
   "name": "baro-dutch",
   "private": true,
   "scripts": {
-    "postinstall": "powershell -ExecutionPolicy Bypass -File ./patch-ast.ps1",
     "dev": "granite dev",
     "build": "granite build",
     "test": "jest --passWithNoTests",
